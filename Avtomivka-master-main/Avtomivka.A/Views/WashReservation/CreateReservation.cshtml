@@ -1,0 +1,37 @@
+﻿@model WashReservationInput
+
+@{
+    var programs = Model.Programs.Select(x => new SelectListItem($"{x.Name}, {x.Price} lv.", x.Id));
+    var workers = Model.Workers.Select(x => new SelectListItem($"{x.Name}, {x.Age}", x.Id));
+}
+<div id="form"
+     data-worker-image="/Worker/GetImage"
+     data-program-description="/Program/GetDescription">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <label asp-for="ReservationDate" ></label>
+            <input asp-for="ReservationDate" type="date" class="form-control" />
+
+            <label asp-for="ProgramId"></label>
+            <select asp-for="ProgramId" class="program-select form-control" asp-items="programs">
+                <option value="" selected>None</option>
+            </select>
+
+            <div>
+                <textarea class="program-description mt-2" style="display: none; width: 100%" disabled rows="5"></textarea>
+            </div>
+
+            <label asp-for="WorkerId"></label>
+            <select asp-for="WorkerId" class="worker-select form-control" asp-items="workers">
+                <option value="" selected>None</option>
+            </select>
+
+
+            <img class="worker-image border border-light mt-2" style="display: none;" src="" />
+            <div>
+                <input type="submit" class="mt-2 form-button" value="Reserve" />
+            </div>
+        </form>
+
+</div>

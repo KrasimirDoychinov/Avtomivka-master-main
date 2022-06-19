@@ -1,0 +1,24 @@
+﻿@model WorkerInput
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control  border border-dark" />
+
+        <label asp-for="Age" ></label>
+        <input asp-for="Age" class="form-control " />
+
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+
+        <label asp-for="Image"></label>
+        <input asp-for="Image" class="form-control border border-dark" />
+
+        <input type="submit" class="form-button btn mt-2" value="Save" />
+
+    </form>
+</div>
+
+

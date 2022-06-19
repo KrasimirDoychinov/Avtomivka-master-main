@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Colon>
+
+<div>
+    <div class="mb-2">
+        <input class="search-input" />
+        <select class="select-input">
+            <option value="0">Number</option>
+            <option value="1">Taken</option>
+        </select>
+    </div>
+    <table class="table table-bordered bg-light border-info caption-top">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Taken</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var colon in Model)
+            {
+                <tr>
+                    <td>@colon.Number</td>
+                    <td>@colon.Taken</td>
+                    <td>@colon.Created</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a asp-area="Admin" asp-controller="Colon" asp-action="CreateColon" class="form-button btn">Create</a>

@@ -1,0 +1,56 @@
+﻿@model WashReservationEditModel
+
+@{
+    var programs = Model.Programs.Select(x => new SelectListItem(x.Name, x.Id));
+}
+
+<div id="form"
+     data-worker-image="/Worker/GetImage"
+     data-program-description="/Program/GetDescription">
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <label asp-for="ReservationDate" class="form-text"></label>
+            <input asp-for="ReservationDate" type="date" class="form-control" />
+
+            <label asp-for="ProgramId" class="form-text"></label>
+            <select asp-for="ProgramId" class="form-control program-select" asp-items="programs">
+                <option value="" selected>None</option>
+            </select>
+
+            @if (string.IsNullOrWhiteSpace(Model.ProgramId))
+            {
+                <div>
+                    <textarea class="program-description mt-2" style="display: none; width: 100%" disabled rows="5">@Model.Description</textarea>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <textarea class="program-description mt-2" style="width: 100%" disabled rows="5">@Model.Description</textarea>
+                </div>
+            }
+
+
+            @if (!Model.Worker.Delete)
+            {
+                <div>
+                    <h5>Your worker <span class="font-weight-bold">@Model.Worker.Name</span>, @Model.Worker.Age</h5>
+                    <img class="border border-light" src="~/Images/@Model.Worker.Image" />
+                </div>
+            }
+            else
+            {
+                <h5>@Model.Worker.Name was fired. Your car will be handled by someone at our location</h5>
+            }
+
+
+            <div class="mt-2">
+                <input type="submit" class="form-button" value="Save" asp-route-workerId="@Model.Worker.Id" asp-route-colonId="@Model.ColonId" />
+                <a class="form-button-danger btn" asp-area="" asp-controller="WashReservation" asp-action="Delete" asp-route-colonId="@Model.ColonId">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>

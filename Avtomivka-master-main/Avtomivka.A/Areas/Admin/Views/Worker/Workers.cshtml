@@ -1,0 +1,28 @@
+﻿@model WorkersAllVM
+
+<div>
+    <table class="table bg-light table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Taken</th>
+                <th>Created</th>
+                <th>Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var worker in Model.Workers)
+            {
+                <tr>
+                    <td><a asp-area="Admin" asp-controller="Worker" asp-action="InfoWorker" asp-route-id="@worker.Id">@worker.Name</a></td>
+                    <td>@worker.Age</td>
+                    <td>@worker.Taken</td>
+                    <td>@worker.Created</td>
+                    <td>@worker.Modified</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a asp-area="Admin" asp-controller="Worker" asp-action="CreateWorker" class="form-button btn">Create</a>

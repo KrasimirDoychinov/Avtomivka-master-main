@@ -1,0 +1,49 @@
+﻿@model HomePageVM
+@inject UserManager<User> userManager
+@{
+    var userId = this.userManager.GetUserAsync(this.User).Result?.Id;
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center text-light">
+    <h1 class="display-4">Free colons : @Model.Colons.Where(x => !x.Taken).Count()</h1>
+</div>
+<div class="row ml-2 mb-2 align-items-center justify-content-center text-center"></div>
+<div class="row text-center align-items-center justify-content-center">
+    @if (Model.Colons.Count() > 0)
+    {
+        foreach (var item in Model.Colons)
+        {
+            {
+                var boxClass = item.Taken ? "box-taken" : "box";
+                if (boxClass == "box")
+                {
+                    <a class="col-3 @boxClass rounded bg-light text-dark text-decoration-none"
+                       asp-area="" asp-controller="WashReservation" asp-action="CreateReservation" asp-route-colonId="@item.Id">
+                        <h3>@item.Number</h3>
+                    </a>
+                }
+                else
+                {
+                    boxClass = item.UserId == userId ? "box-taken-user" : "box-taken";
+                    if (this.User.Identity.IsAuthenticated && boxClass == "box-taken-user")
+                    {
+                        <a class="col-3 @boxClass rounded bg-warning text-light text-decoration-none"
+                           asp-area="" asp-controller="WashReservation" asp-action="EditReservation" asp-route-colonId="@item.Id">
+                            <h3>@item.Number</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="col-3 @boxClass rounded bg-danger text-light">
+                            <h3>@item.Number</h3>
+                        </div>
+                    }
+                }
+
+            }
+        }
+    }
+
+</div>
+

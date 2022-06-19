@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Avtomivka.A.Data.Models.Program>
+
+<div>
+    <table class="table bg-light table-bordered">
+        <thead>
+            <tr>
+                <th>Name and price</th>
+                <th>Description</th>
+                <th>Modified</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var program in Model)
+            {
+                <tr>
+                    <td><a asp-area="Admin" asp-controller="Program" asp-action="EditProgram" asp-route-id="@program.Id" class="text-decoration-none">@program.Name, @program.Price lv.</a></td>
+                    <td>@(program.Description.Length >= 25 ? program.Description.Substring(0, 25) + "..." : program.Description)</td>
+                    <td>@program.Modified</td>
+                    <td>@program.Created</td>
+                    <td><a asp-area="Admin" asp-controller="Program" asp-action="DeleteProgram" asp-route-id="@program.Id" class="text-center"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a asp-area="Admin" asp-controller="Program" asp-action="CreateProgram" class="form-button btn">Create</a>
